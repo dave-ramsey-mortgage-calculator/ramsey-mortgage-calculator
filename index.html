@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online mortgage calculator to estimate your monthly payments. Calculate loan amounts, interest rates, and terms easily.">
+  <meta name="keywords" content="dave ramsey mortgage calculator, mortgage calculator, loan calculator, monthly payment calculator, home loan calculator">
+  <meta name="author" content="parwez ali">
+  <meta property="og:title" content="Mortgage Calculator - Estimate Your Monthly Payments">
+  <meta property="og:description" content="Use our free mortgage calculator to estimate your monthly payments and plan your home loan effectively.">
+  <meta property="og:image" content="https://example.com/mortgage-calculator.jpg">
+  <meta property="og:url" content="https://example.com/mortgage-calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Ramsey Mortgage Calculator - Estimate Your Monthly Payments</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background: #007BFF;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .calculator {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calculator label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .calculator input[type="number"], .calculator select {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .calculator button {
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .calculator button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-align: left;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ramsey Mortgage Calculator</h1>
+    <p>Estimate your monthly mortgage payments with ease.</p>
+  </header>
+
+  <div class="container">
+    <h3>Mortgage Details</h3>
+    <form class="calculator" id="mortgageForm">
+      <label for="propertyValue">Property Value ($):</label>
+      <input type="number" id="propertyValue" placeholder="$300,000" required>
+
+      <label for="downPayment">Down Payment ($):</label>
+      <input type="number" id="downPayment" placeholder="$60,000" required>
+
+      <label for="interestRate">Annual Interest Rate (%):</label>
+      <input type="number" step="0.01" id="interestRate" placeholder="3.5%" required>
+
+      <label for="amortizationPeriod">Amortization Period (Years):</label>
+      <input type="number" id="amortizationPeriod" placeholder="30" required>
+
+      <label for="pmi">PMI / Year ($):</label>
+      <input type="number" id="pmi" placeholder="$1,000" required>
+
+      <label for="paymentFrequency">Payment Frequency:</label>
+      <select id="paymentFrequency">
+        <option value="12">Monthly</option>
+        <option value="26">Bi-Weekly</option>
+        <option value="52">Weekly</option>
+      </select>
+
+      <label for="startMonthYear">Start Month & Year:</label>
+      <input type="month" id="startMonthYear" required>
+
+      <h3>Homeowner Expenses</h3>
+
+      <label for="oneTimeExpenses">One-time Expenses ($):</label>
+      <input type="number" id="oneTimeExpenses" placeholder="$5,000" required>
+
+      <label for="propertyTaxes">Property Taxes / Year ($):</label>
+      <input type="number" id="propertyTaxes" placeholder="$3,000" required>
+
+      <label for="homeInsurance">Home Insurance / Year ($):</label>
+      <input type="number" id="homeInsurance" placeholder="$1,200" required>
+
+      <label for="hoaFees">HOA Fees / Month ($):</label>
+      <input type="number" id="hoaFees" placeholder="$200" required>
+
+      <button type="button" onclick="calculateMortgage()">Calculate</button>
+    </form>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Mortgage Calculator. All rights reserved.
+  </footer>
+
+  <script>
+    function calculateMortgage() {
+      // Get input values
+      const propertyValue = parseFloat(document.getElementById('propertyValue').value);
+      const downPayment = parseFloat(document.getElementById('downPayment').value);
+      const interestRate = parseFloat(document.getElementById('interestRate').value);
+      const amortizationPeriod = parseFloat(document.getElementById('amortizationPeriod').value);
+      const pmi = parseFloat(document.getElementById('pmi').value);
+      const paymentFrequency = parseFloat(document.getElementById('paymentFrequency').value);
+
+      const oneTimeExpenses = parseFloat(document.getElementById('oneTimeExpenses').value);
+      const propertyTaxes = parseFloat(document.getElementById('propertyTaxes').value);
+      const homeInsurance = parseFloat(document.getElementById('homeInsurance').value);
+      const hoaFees = parseFloat(document.getElementById('hoaFees').value);
+
+      // Validate inputs
+      if (
+        isNaN(propertyValue) || isNaN(downPayment) || isNaN(interestRate) ||
+        isNaN(amortizationPeriod) || isNaN(pmi) || isNaN(oneTimeExpenses) ||
+        isNaN(propertyTaxes) || isNaN(homeInsurance) || isNaN(hoaFees)
+      ) {
+        document.getElementById('result').innerHTML = '<p style="color: red;">Please enter valid numbers for all fields.</p>';
+        return;
+      }
+
+      // Calculate mortgage amount
+      const mortgageAmount = propertyValue - downPayment;
+
+      // Convert annual interest rate to periodic rate
+      const periodicInterestRate = (interestRate / 100) / paymentFrequency;
+
+      // Total number of payments
+      const totalPayments = amortizationPeriod * paymentFrequency;
+
+      // Calculate periodic payment using the mortgage formula
+      const periodicPayment = (mortgageAmount * periodicInterestRate) / (1 - Math.pow(1 + periodicInterestRate, -totalPayments));
+
+      // Add PMI cost per payment
+      const pmiPerPayment = pmi / paymentFrequency;
+
+      // Add homeowner expenses
+      const propertyTaxesPerPayment = propertyTaxes / paymentFrequency;
+      const homeInsurancePerPayment = homeInsurance / paymentFrequency;
+
+      // Total monthly payment
+      const totalPayment = periodicPayment + pmiPerPayment + propertyTaxesPerPayment + homeInsurancePerPayment + hoaFees;
+
+      // Display result
+      document.getElementById('result').innerHTML = `
+        <p><strong>Mortgage Amount:</strong> $${mortgageAmount.toFixed(2)}</p>
+        <p><strong>Monthly Mortgage Payment:</strong> $${periodicPayment.toFixed(2)}</p>
+        <p><strong>PMI Per Payment:</strong> $${pmiPerPayment.toFixed(2)}</p>
+        <p><strong>Property Taxes Per Payment:</strong> $${propertyTaxesPerPayment.toFixed(2)}</p>
+        <p><strong>Home Insurance Per Payment:</strong> $${homeInsurancePerPayment.toFixed(2)}</p>
+        <p><strong>HOA Fees Per Payment:</strong> $${hoaFees.toFixed(2)}</p>
+        <p><strong>Total Monthly Payment:</strong> $${totalPayment.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

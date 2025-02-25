@@ -1,1 +1,0 @@
-# ramsey-mortgage-calculator
